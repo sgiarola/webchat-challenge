@@ -2,8 +2,9 @@ package com.challenge.webchat.business.login;
 
 import com.challenge.webchat.business.config.BusinessConfig;
 import com.challenge.webchat.commons.User;
-import com.challenge.webchat.commons.builder.UserBuilder;
+import com.challenge.webchat.repository.entity.UserEntity;
 import com.challenge.webchat.repository.login.LoginRepository;
+import org.bson.types.ObjectId;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -25,7 +26,6 @@ public class LoginBusinessTest {
 
     private static final String USERNAME = "fulano";
     private static final String PASSWORD = "123456";
-    private static final Long USER_ID = 1L;
 
     @Autowired
     @InjectMocks
@@ -42,11 +42,13 @@ public class LoginBusinessTest {
     @Test
     public void withValidLoginAndPasswordWhenCallRepositoryThenReturnCorrectUser() {
 
-        when(loginRepository.findBy(anyString(), anyString())).thenReturn(new UserBuilder()
-                .withId(USER_ID).withName(USERNAME).withPassword(PASSWORD).getUser());
+        ObjectId id = ObjectId.get();
+
+        when(loginRepository.findByNameAndPassword(anyString(), anyString())).thenReturn(
+                new UserEntity(id, USERNAME, PASSWORD));
 
         User user = loginBusiness.getUserBy(USERNAME, PASSWORD);
 
-        assertThat(user.getId(), is(USER_ID));
+        assertThat(user.getId(), is(id.toHexString()));
     }
 }

@@ -1,19 +1,34 @@
-package com.challenge.webchat.commons;
+package com.challenge.webchat.repository.entity;
 
-public class User {
+import org.bson.types.ObjectId;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-    private String id;
+@Document
+public class UserEntity {
+
+    @Id
+    private ObjectId id;
     private String name;
     private String password;
     private String email;
     private Integer age;
     private String genre;
 
-    public String getId() {
+    public UserEntity() {
+    }
+
+    public UserEntity(ObjectId id, String name, String password) {
+        this.id = id;
+        this.name = name;
+        this.password = password;
+    }
+
+    public ObjectId getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(ObjectId id) {
         this.id = id;
     }
 

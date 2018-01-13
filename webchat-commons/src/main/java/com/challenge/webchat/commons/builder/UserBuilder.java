@@ -10,7 +10,7 @@ public class UserBuilder {
         this.user = new User();
     }
 
-    public UserBuilder withId(Long id) {
+    public UserBuilder withId(String id) {
         user.setId(id);
         return this;
     }
@@ -22,6 +22,21 @@ public class UserBuilder {
 
     public UserBuilder withPassword(String password) {
         user.setPassword(password);
+        return this;
+    }
+
+    public UserBuilder withAge(Integer age) {
+        user.setAge(age);
+        return this;
+    }
+
+    public UserBuilder withGenre(String genre) {
+        user.setGenre(genre);
+        return this;
+    }
+
+    public UserBuilder withEmail(String email) {
+        user.setEmail(email);
         return this;
     }
 

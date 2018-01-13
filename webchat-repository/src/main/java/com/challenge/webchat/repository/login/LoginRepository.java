@@ -1,12 +1,9 @@
 package com.challenge.webchat.repository.login;
 
-import com.challenge.webchat.commons.User;
-import org.springframework.stereotype.Repository;
+import com.challenge.webchat.repository.entity.UserEntity;
+import org.springframework.data.repository.CrudRepository;
 
-@Repository
-public class LoginRepository {
+public interface LoginRepository extends CrudRepository<UserEntity, String> {
 
-    public User findBy(String name, String password) {
-        return null;
-    }
+    UserEntity findByNameAndPassword(String name, String password);
 }
