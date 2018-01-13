@@ -15,6 +15,8 @@
         <module>webchat-security</module>
         <module>webchat-repository</module>
         <module>webchat-controller</module>
+        <module>webchat-business</module>
+        <module>webchat-commons</module>
     </modules>
 
     <properties>
