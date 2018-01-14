@@ -23,6 +23,9 @@ public class UserDetailsService implements org.springframework.security.core.use
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserEntity user = userRepository.findByName(username);
+        if(user == null){
+            throw new UsernameNotFoundException(String.format("User %s not found.", username));
+        }
         LOGGER.info(String.format("Found registered user with ID: %s to authenticate", user.getId()));
         return new org.springframework.security.core.userdetails.User(user.getName(), user.getPassword(), AuthorityUtils.NO_AUTHORITIES);
     }
