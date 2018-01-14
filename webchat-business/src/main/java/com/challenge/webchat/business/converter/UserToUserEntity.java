@@ -15,6 +15,6 @@ public class UserToUserEntity implements Converter<User, UserEntity> {
 
         return new UserEntityBuilder().withName(user.getName())
                 .withPassword(new BCryptPasswordEncoder().encode(user.getPassword())).withAge(user.getAge()).withEmail(user.getEmail())
-                .withGenre(user.getGenre()).getUserEntity();
+                .withGenre(user.getGenre()).withLoggedIn(Boolean.FALSE).getUserEntity();
     }
 }

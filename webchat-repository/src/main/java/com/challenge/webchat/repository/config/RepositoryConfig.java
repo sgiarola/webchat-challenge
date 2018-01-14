@@ -13,7 +13,7 @@ import java.io.IOException;
 @Configuration
 @EnableAutoConfiguration
 @EnableMongoRepositories("com.challenge.webchat.repository.user")
-@ComponentScan("com.challenge.webchat.repository.entity")
+@ComponentScan({"com.challenge.webchat.repository.entity", "com.challenge.webchat.repository.user.facade"})
 public class RepositoryConfig {
 
     private static final String MONGO_DB_URL = "localhost";

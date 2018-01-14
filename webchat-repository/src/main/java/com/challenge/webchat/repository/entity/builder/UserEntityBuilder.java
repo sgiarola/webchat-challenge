@@ -41,6 +41,11 @@ public class UserEntityBuilder {
         return this;
     }
 
+    public UserEntityBuilder withLoggedIn(boolean loggedIn) {
+        userEntity.setLoggedIn(loggedIn);
+        return this;
+    }
+
     public UserEntity getUserEntity() {
         return userEntity;
     }

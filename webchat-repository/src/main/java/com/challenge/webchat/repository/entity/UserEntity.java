@@ -14,6 +14,7 @@ public class UserEntity {
     private String email;
     private Integer age;
     private String genre;
+    private boolean loggedIn;
 
     public UserEntity() {
     }
@@ -69,5 +70,13 @@ public class UserEntity {
 
     public void setGenre(String genre) {
         this.genre = genre;
+    }
+
+    public boolean isLoggedIn() {
+        return loggedIn;
+    }
+
+    public void setLoggedIn(Boolean loggedIn) {
+        this.loggedIn = loggedIn;
     }
 }
