@@ -1,6 +1,9 @@
 package com.challenge.webchat.controller.user;
 
 import com.challenge.webchat.business.user.UserBusiness;
+import com.challenge.webchat.commons.User;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,11 +15,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/user")
 public class UserController {
 
+    private static final Logger LOGGER = LogManager.getLogger(UserController.class);
+
     @Autowired
     private UserBusiness userBusiness;
 
     @RequestMapping(method = RequestMethod.GET, value = "/{username}")
     public ResponseEntity getUser(@PathVariable("username") String username) {
-        return ResponseEntity.ok().body(userBusiness.getUserBy(username));
+        User user = userBusiness.getBy(username);
+        LOGGER.info("Found user with success");
+        return ResponseEntity.ok().body(user);
     }
 }

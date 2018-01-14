@@ -2,7 +2,9 @@ package com.challenge.webchat.business.user;
 
 import com.challenge.webchat.business.config.BusinessConfig;
 import com.challenge.webchat.commons.User;
+import com.challenge.webchat.commons.builder.UserBuilder;
 import com.challenge.webchat.repository.entity.UserEntity;
+import com.challenge.webchat.repository.entity.builder.UserEntityBuilder;
 import com.challenge.webchat.repository.user.UserRepository;
 import org.bson.types.ObjectId;
 import org.junit.Before;
@@ -16,6 +18,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
@@ -39,14 +42,26 @@ public class UserBusinessTest {
     }
 
     @Test
-    public void withValidLoginAndPasswordWhenCallRepositoryThenReturnCorrectUser() {
+    public void withValidLoginAndPasswordWhenCallRepositoryToFindThenReturnCorrectUser() {
 
         ObjectId id = ObjectId.get();
 
         when(userRepository.findByName(anyString())).thenReturn(new UserEntity(id, USERNAME));
 
-        User user = userBusiness.getUserBy(USERNAME);
+        User user = userBusiness.getBy(USERNAME);
 
         assertThat(user.getId(), is(id.toHexString()));
+    }
+
+    @Test
+    public void withValidUserWhenCallRepositoryToPersistThenReturnCorrectId() {
+
+        UserEntity userEntity = new UserEntityBuilder().withId().withName(USERNAME).getUserEntity();
+
+        when(userRepository.save(any(UserEntity.class))).thenReturn(userEntity);
+
+        String id = userBusiness.signUp(new UserBuilder().withName(USERNAME).getUser());
+
+        assertThat(userEntity.getId().toHexString(), is(id));
     }
 }
