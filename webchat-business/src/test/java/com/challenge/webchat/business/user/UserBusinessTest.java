@@ -28,6 +28,7 @@ import static org.mockito.MockitoAnnotations.initMocks;
 public class UserBusinessTest {
 
     private static final String USERNAME = "fulano";
+    private static final String PASSWORD = "123456";
 
     @Autowired
     @InjectMocks
@@ -60,7 +61,7 @@ public class UserBusinessTest {
 
         when(userRepository.save(any(UserEntity.class))).thenReturn(userEntity);
 
-        String id = userBusiness.signUp(new UserBuilder().withName(USERNAME).getUser());
+        String id = userBusiness.signUp(new UserBuilder().withName(USERNAME).withPassword(PASSWORD).getUser());
 
         assertThat(userEntity.getId().toHexString(), is(id));
     }

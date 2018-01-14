@@ -5,9 +5,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 @SpringBootApplication
-@ComponentScan("com.challenge.main.config")
+@ComponentScan("com.challenge.webchat.main.config")
+@EnableWebMvc
 public class MainApplication extends SpringBootServletInitializer {
 
     public static void main(String[] args) {
@@ -16,6 +18,6 @@ public class MainApplication extends SpringBootServletInitializer {
 
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-        return application.sources(SpringApplication.class);
+        return application.sources(MainApplication.class);
     }
 }

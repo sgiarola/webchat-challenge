@@ -20,16 +20,6 @@ public class SecurityService {
     @Autowired
     private UserDetailsService userDetailsService;
 
-    public String findLoggedInUsername() {
-
-        Object userDetails = SecurityContextHolder.getContext().getAuthentication().getDetails();
-        if (userDetails instanceof UserDetails) {
-            return ((UserDetails)userDetails).getUsername();
-        }
-
-        return null;
-    }
-
     public void autoLogin(String username, String password) {
         LOGGER.info(String.format("Doing auto-login to user: %s", username));
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
