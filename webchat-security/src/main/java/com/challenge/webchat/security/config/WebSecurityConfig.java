@@ -1,5 +1,7 @@
 package com.challenge.webchat.security.config;
 
+import com.challenge.webchat.security.handler.CustomLoginSuccessHandler;
+import com.challenge.webchat.security.handler.CustomLogoutSuccessHandler;
 import com.challenge.webchat.security.service.UserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -14,6 +16,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserDetailsService userDetailsService;
 
+    @Autowired
+    private CustomLogoutSuccessHandler customLogoutSuccessHandler;
+
+    @Autowired
+    private CustomLoginSuccessHandler customLoginSuccessHandler;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable().authorizeRequests()
@@ -25,10 +33,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .usernameParameter("username")
                 .passwordParameter("password")
                 .defaultSuccessUrl("/login")
+                .successHandler(customLoginSuccessHandler)
                 .permitAll()
                 .and()
                 .logout()
-                .logoutUrl("/logout");
+                .logoutUrl("/logout")
+                .logoutSuccessHandler(customLogoutSuccessHandler);
     }
 
     @Autowired
