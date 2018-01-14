@@ -1,9 +1,9 @@
-package com.challenge.webchat.business.login;
+package com.challenge.webchat.business.user;
 
 import com.challenge.webchat.business.config.BusinessConfig;
 import com.challenge.webchat.commons.User;
 import com.challenge.webchat.repository.entity.UserEntity;
-import com.challenge.webchat.repository.login.LoginRepository;
+import com.challenge.webchat.repository.user.UserRepository;
 import org.bson.types.ObjectId;
 import org.junit.Before;
 import org.junit.Test;
@@ -22,17 +22,16 @@ import static org.mockito.MockitoAnnotations.initMocks;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = BusinessConfig.class)
-public class LoginBusinessTest {
+public class UserBusinessTest {
 
     private static final String USERNAME = "fulano";
-    private static final String PASSWORD = "123456";
 
     @Autowired
     @InjectMocks
-    private LoginBusiness loginBusiness;
+    private UserBusiness userBusiness;
 
     @Mock
-    private LoginRepository loginRepository;
+    private UserRepository userRepository;
 
     @Before
     public void setUp() {
@@ -44,10 +43,9 @@ public class LoginBusinessTest {
 
         ObjectId id = ObjectId.get();
 
-        when(loginRepository.findByNameAndPassword(anyString(), anyString())).thenReturn(
-                new UserEntity(id, USERNAME, PASSWORD));
+        when(userRepository.findByName(anyString())).thenReturn(new UserEntity(id, USERNAME));
 
-        User user = loginBusiness.getUserBy(USERNAME, PASSWORD);
+        User user = userBusiness.getUserBy(USERNAME);
 
         assertThat(user.getId(), is(id.toHexString()));
     }

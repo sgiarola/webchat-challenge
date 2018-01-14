@@ -1,4 +1,4 @@
-package com.challenge.webchat.repository.login;
+package com.challenge.webchat.repository.user;
 
 import com.challenge.webchat.repository.config.RepositoryConfig;
 import com.challenge.webchat.repository.entity.UserEntity;
@@ -14,7 +14,7 @@ import static org.junit.Assert.assertThat;
 
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes = RepositoryConfig.class)
-public class LoginRepositoryIntegrationTest {
+public class UserRepositoryIntegrationTest {
 
     private static final String USERNAME = "fulano";
     private static final String PASSWORD = "123456";
@@ -22,18 +22,18 @@ public class LoginRepositoryIntegrationTest {
     private static final String GENRE = "M";
 
     @Autowired
-    private LoginRepository loginRepository;
+    private UserRepository userRepository;
 
     @Before
     public void setUp() {
 
-        loginRepository.save(createUserEntity());
+        userRepository.save(createUserEntity());
     }
 
     @Test
     public void withValidUsernameAndPasswordWhenSelectByBothParametersThenReturnCorrectUserEntity() {
 
-        UserEntity userEntity = loginRepository.findByNameAndPassword(USERNAME, PASSWORD);
+        UserEntity userEntity = userRepository.findByName(USERNAME);
 
         assertThat(userEntity.getPassword(), is(PASSWORD));
     }

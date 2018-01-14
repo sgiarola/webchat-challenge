@@ -18,10 +18,9 @@ public class UserEntity {
     public UserEntity() {
     }
 
-    public UserEntity(ObjectId id, String name, String password) {
+    public UserEntity(ObjectId id, String name) {
         this.id = id;
         this.name = name;
-        this.password = password;
     }
 
     public ObjectId getId() {
