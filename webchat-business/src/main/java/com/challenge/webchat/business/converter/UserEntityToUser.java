@@ -6,6 +6,9 @@ import com.challenge.webchat.repository.entity.UserEntity;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Component
 public class UserEntityToUser implements Converter<UserEntity, User> {
 
@@ -15,5 +18,10 @@ public class UserEntityToUser implements Converter<UserEntity, User> {
         return new UserBuilder().withId(userEntity.getId().toHexString()).withName(userEntity.getName())
                 .withPassword(userEntity.getPassword()).withAge(userEntity.getAge()).withEmail(userEntity.getEmail())
                 .withGenre(userEntity.getGenre()).withLoggedIn(userEntity.isLoggedIn()).getUser();
+    }
+
+    public List<User> convert(List<UserEntity> friendsEntities) {
+
+        return friendsEntities.stream().map(this::convert).collect(Collectors.toList());
     }
 }
