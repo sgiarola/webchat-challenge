@@ -21,4 +21,11 @@ public class UserRepositoryFacade {
         userEntity.setLoggedIn(isLoggedIn);
         userRepository.save(userEntity);
     }
+
+    public void addFriendBy(String username, String newFriend) {
+        LOGGER.info(String.format("Adding in UserEntity %s the friend %s", username, newFriend));
+        UserEntity userEntity = userRepository.findByName(username);
+        userEntity.getFriends().add(newFriend);
+        userRepository.save(userEntity);
+    }
 }

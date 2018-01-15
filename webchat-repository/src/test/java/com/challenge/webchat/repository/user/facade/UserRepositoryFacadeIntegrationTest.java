@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import static org.hamcrest.Matchers.*;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringRunner.class)
@@ -19,6 +21,7 @@ import static org.junit.Assert.assertTrue;
 public class UserRepositoryFacadeIntegrationTest {
 
     private static final String USERNAME = "fulano";
+    private static final String FRIEND_USERNAME = "cicrano";
     private static final String PASSWORD = "123456";
     private static final String EMAIL = "fulano@org.com";
     private static final String GENRE = "M";
@@ -47,6 +50,16 @@ public class UserRepositoryFacadeIntegrationTest {
         UserEntity userEntity = userRepository.findByName(USERNAME);
 
         assertTrue(userEntity.isLoggedIn());
+    }
+
+    @Test
+    public void withThatHasNoFriendsWhenAddOneFriendThenReturnNotEmptyList() {
+
+        userRepositoryFacade.addFriendBy(USERNAME, FRIEND_USERNAME);
+
+        UserEntity userEntity = userRepository.findByName(USERNAME);
+
+        assertThat(userEntity.getFriends(), is(not(empty())));
     }
 
     @After

@@ -4,6 +4,9 @@ import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Document
 public class UserEntity {
 
@@ -15,6 +18,7 @@ public class UserEntity {
     private Integer age;
     private String genre;
     private boolean loggedIn;
+    private List<String> friends;
 
     public UserEntity() {
     }
@@ -78,5 +82,16 @@ public class UserEntity {
 
     public void setLoggedIn(Boolean loggedIn) {
         this.loggedIn = loggedIn;
+    }
+
+    public List<String> getFriends() {
+        if (friends == null) {
+            friends = new ArrayList<>();
+        }
+        return friends;
+    }
+
+    public void setFriends(List<String> friends) {
+        this.friends = friends;
     }
 }

@@ -3,6 +3,8 @@ package com.challenge.webchat.repository.entity.builder;
 import com.challenge.webchat.repository.entity.UserEntity;
 import org.bson.types.ObjectId;
 
+import java.util.List;
+
 public class UserEntityBuilder {
 
     private UserEntity userEntity;
@@ -43,6 +45,11 @@ public class UserEntityBuilder {
 
     public UserEntityBuilder withLoggedIn(boolean loggedIn) {
         userEntity.setLoggedIn(loggedIn);
+        return this;
+    }
+
+    public UserEntityBuilder withFriends(List<String> friends) {
+        userEntity.setFriends(friends);
         return this;
     }
 
