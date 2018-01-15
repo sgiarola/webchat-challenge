@@ -55,7 +55,7 @@ public class UserRepositoryFacadeIntegrationTest {
     @Test
     public void withThatHasNoFriendsWhenAddOneFriendThenReturnNotEmptyList() {
 
-        userRepositoryFacade.addFriendBy(USERNAME, FRIEND_USERNAME);
+        userRepositoryFacade.addFriend(USERNAME, FRIEND_USERNAME);
 
         UserEntity userEntity = userRepository.findByName(USERNAME);
 

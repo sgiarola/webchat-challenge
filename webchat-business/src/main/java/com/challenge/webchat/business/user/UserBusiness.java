@@ -5,6 +5,7 @@ import com.challenge.webchat.business.converter.UserToUserEntity;
 import com.challenge.webchat.commons.User;
 import com.challenge.webchat.repository.entity.UserEntity;
 import com.challenge.webchat.repository.user.UserRepository;
+import com.challenge.webchat.repository.user.facade.UserRepositoryFacade;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,9 @@ public class UserBusiness {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private UserRepositoryFacade userRepositoryFacade;
 
     @Autowired
     private UserEntityToUser userEntityToUser;

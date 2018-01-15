@@ -14,6 +14,6 @@ public class UserEntityToUser implements Converter<UserEntity, User> {
 
         return new UserBuilder().withId(userEntity.getId().toHexString()).withName(userEntity.getName())
                 .withPassword(userEntity.getPassword()).withAge(userEntity.getAge()).withEmail(userEntity.getEmail())
-                .withGenre(userEntity.getGenre()).getUser();
+                .withGenre(userEntity.getGenre()).withLoggedIn(userEntity.isLoggedIn()).getUser();
     }
 }

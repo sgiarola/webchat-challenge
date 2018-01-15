@@ -1,5 +1,7 @@
 package com.challenge.webchat.commons;
 
+import java.util.List;
+
 public class User {
 
     private String id;
@@ -8,6 +10,8 @@ public class User {
     private String email;
     private Integer age;
     private String genre;
+    private boolean loggedIn;
+    private List<User> friends;
 
     public String getId() {
         return id;
@@ -55,5 +59,21 @@ public class User {
 
     public void setGenre(String genre) {
         this.genre = genre;
+    }
+
+    public boolean isLoggedIn() {
+        return loggedIn;
+    }
+
+    public void setLoggedIn(boolean loggedIn) {
+        this.loggedIn = loggedIn;
+    }
+
+    public List<User> getFriends() {
+        return friends;
+    }
+
+    public void setFriends(List<User> friends) {
+        this.friends = friends;
     }
 }

@@ -40,6 +40,11 @@ public class UserBuilder {
         return this;
     }
 
+    public UserBuilder withLoggedIn(boolean loggedIn) {
+        user.setLoggedIn(loggedIn);
+        return this;
+    }
+
     public User getUser() {
         return user;
     }
