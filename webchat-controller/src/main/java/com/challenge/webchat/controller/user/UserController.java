@@ -4,6 +4,7 @@ import com.challenge.webchat.business.user.UserBusiness;
 import com.challenge.webchat.commons.User;
 import com.challenge.webchat.controller.user.converter.UserDTOToUser;
 import com.challenge.webchat.controller.user.dto.UserDTO;
+import com.challenge.webchat.controller.user.dto.UserFriendDTO;
 import com.challenge.webchat.security.service.SecurityService;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -33,11 +34,18 @@ public class UserController {
         return ResponseEntity.ok().body(user);
     }
 
-    @RequestMapping(value = "/signUp", method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity signUp(@RequestBody UserDTO userDTO) {
         LOGGER.info(String.format("POST to persist user: %s", userDTO));
         userBusiness.signUp(userDTOToUser.convert(userDTO));
         securityService.autoLogin(userDTO.getName(), userDTO.getPassword());
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok("Created user with success");
+    }
+
+    @RequestMapping(method = RequestMethod.PATCH, value = "/friend")
+    public ResponseEntity addFriend(@RequestBody UserFriendDTO userFriendDTO) {
+        LOGGER.info("PATCH to add friend");
+        userBusiness.addFriendTo(userFriendDTO.getName(), userFriendDTO.getFriend());
+        return ResponseEntity.ok(String.format("Added friend %s with success.", userFriendDTO.getFriend()));
     }
 }
