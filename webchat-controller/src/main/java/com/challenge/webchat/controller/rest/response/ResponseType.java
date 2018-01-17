@@ -1,4 +1,4 @@
-package com.challenge.webchat.controller.response;
+package com.challenge.webchat.controller.rest.response;
 
 
 public enum ResponseType {

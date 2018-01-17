@@ -1,6 +1,6 @@
-package com.challenge.webchat.controller.user.dto.builder;
+package com.challenge.webchat.controller.rest.user.dto.builder;
 
-import com.challenge.webchat.controller.user.dto.UserDTO;
+import com.challenge.webchat.controller.rest.user.dto.UserDTO;
 
 public class UserDTOBuilder {
 

@@ -1,4 +1,4 @@
-package com.challenge.webchat.controller.login;
+package com.challenge.webchat.controller.rest.login;
 
 import com.challenge.webchat.commons.User;
 import org.apache.log4j.LogManager;

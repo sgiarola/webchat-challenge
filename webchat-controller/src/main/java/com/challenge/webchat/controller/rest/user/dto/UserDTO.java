@@ -1,4 +1,4 @@
-package com.challenge.webchat.controller.user.dto;
+package com.challenge.webchat.controller.rest.user.dto;
 
 public class UserDTO {
 

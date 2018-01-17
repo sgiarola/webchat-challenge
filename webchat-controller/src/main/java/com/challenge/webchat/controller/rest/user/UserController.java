@@ -1,10 +1,10 @@
-package com.challenge.webchat.controller.user;
+package com.challenge.webchat.controller.rest.user;
 
 import com.challenge.webchat.business.user.UserBusiness;
 import com.challenge.webchat.commons.User;
-import com.challenge.webchat.controller.user.converter.UserDTOToUser;
-import com.challenge.webchat.controller.user.dto.UserDTO;
-import com.challenge.webchat.controller.user.dto.UserFriendDTO;
+import com.challenge.webchat.controller.rest.user.converter.UserDTOToUser;
+import com.challenge.webchat.controller.rest.user.dto.UserDTO;
+import com.challenge.webchat.controller.rest.user.dto.UserFriendDTO;
 import com.challenge.webchat.security.service.SecurityService;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;

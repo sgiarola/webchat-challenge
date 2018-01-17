@@ -1,8 +1,8 @@
-package com.challenge.webchat.controller.user.converter;
+package com.challenge.webchat.controller.rest.user.converter;
 
 import com.challenge.webchat.commons.User;
 import com.challenge.webchat.commons.builder.UserBuilder;
-import com.challenge.webchat.controller.user.dto.UserDTO;
+import com.challenge.webchat.controller.rest.user.dto.UserDTO;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 

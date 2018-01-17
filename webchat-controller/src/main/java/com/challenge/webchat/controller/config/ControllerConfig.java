@@ -14,7 +14,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @Configuration
 @EnableSwagger2
-@ComponentScan({"com.challenge.webchat.controller.user", "com.challenge.webchat.controller.login"})
+@ComponentScan({"com.challenge.webchat.controller.rest.user", "com.challenge.webchat.controller.rest.login"})
 public class ControllerConfig extends WebMvcConfigurerAdapter {
 
     @Bean

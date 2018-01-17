@@ -1,4 +1,4 @@
-package com.challenge.webchat.controller.response;
+package com.challenge.webchat.controller.rest.response;
 
 import java.util.ArrayList;
 import java.util.List;
