@@ -9,6 +9,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -31,15 +33,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) {
-        web.ignoring().antMatchers("/v2/api-docs", "/name", "/configuration/ui", "/swagger-resources", "/configuration/security", "/swagger-ui.html", "/webjars/**");
+        web.ignoring().antMatchers("/v2/api-docs", "/name", "/configuration/ui", "/swagger-resources",
+                "/configuration/security", "/swagger-ui.html", "/webjars/**", "/list.html")
+                .antMatchers(HttpMethod.OPTIONS, "/**");
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable().authorizeRequests()
-                .antMatchers(HttpMethod.POST, "/user").permitAll()
-                .anyRequest().authenticated()
-                .and()
+        http.httpBasic().and().csrf().disable()
                 .formLogin()
                 .loginProcessingUrl("/login")
                 .usernameParameter("username")
@@ -51,24 +52,23 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout()
                 .logoutUrl("/logout")
                 .logoutSuccessHandler(customLogoutSuccessHandler)
-                .and().cors();
-    }
-
-    @Bean
-    public CorsConfigurationSource corsConfigurationSource() {
-        final CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(ImmutableList.of("*"));
-        configuration.setAllowedMethods(ImmutableList.of("HEAD",
-                "GET", "POST", "PUT", "DELETE", "PATCH"));
-        configuration.setAllowCredentials(true);
-        configuration.setAllowedHeaders(ImmutableList.of("Authorization", "Cache-Control", "Content-Type"));
-        final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
-        return source;
+                .and()
+                .authorizeRequests()
+                .antMatchers("/**").permitAll()
+                .anyRequest().authenticated();
     }
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(new BCryptPasswordEncoder());
+    }
+
+    @EnableGlobalMethodSecurity(prePostEnabled = true, jsr250Enabled = true, securedEnabled = true)
+    private static class GlobalSecurityConfiguration extends GlobalMethodSecurityConfiguration {
+
+        public GlobalSecurityConfiguration() {
+            super();
+        }
+
     }
 }

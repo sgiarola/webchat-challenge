@@ -10,9 +10,9 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -29,10 +29,12 @@ public class UserController {
     private SecurityService securityService;
 
     @RequestMapping(method = RequestMethod.GET, value = "/{username}")
-    public ResponseEntity getUser(@PathVariable("username") String username) {
+    @PreAuthorize("isAuthenticated()")
+    @ResponseBody
+    public User getUser(@PathVariable("username") String username) {
         User user = userBusiness.getBy(username);
         LOGGER.info("Found user with success");
-        return ResponseEntity.ok().body(user);
+        return user;
     }
 
     @RequestMapping(method = RequestMethod.POST)
@@ -44,6 +46,7 @@ public class UserController {
     }
 
     @RequestMapping(method = RequestMethod.PATCH, value = "/friend")
+    @PreAuthorize("isAuthenticated()")
     public ResponseEntity addFriend(@RequestBody UserFriendDTO userFriendDTO) {
         LOGGER.info("PATCH to add friend");
         userBusiness.addFriendTo(userFriendDTO.getName(), userFriendDTO.getFriend());

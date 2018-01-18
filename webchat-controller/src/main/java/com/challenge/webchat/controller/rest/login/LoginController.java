@@ -4,12 +4,10 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-@CrossOrigin
 @RestController
 @RequestMapping("/login")
 public class LoginController {

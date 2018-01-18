@@ -23,8 +23,9 @@ public class WebSocketHandler extends TextWebSocketHandler {
     @Override
     public void handleTextMessage(WebSocketSession session, TextMessage message) throws IOException {
 
-        LOGGER.info(String.format("Received message %s", message.getPayload()));
         ChatDTO chatDTO = new Gson().fromJson(message.getPayload(), ChatDTO.class);
+        LOGGER.info(String.format("Received message %s. Chat between %s.",
+                message.getPayload(), chatDTO.getMessage().getChatGroup()));
 
         for(WebSocketSession webSocketSession : sessions) {
             if (webSocketSession.isOpen()) {
@@ -35,8 +36,7 @@ public class WebSocketHandler extends TextWebSocketHandler {
     }
 
     @Override
-    public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-        //the messages will be broadcasted to all users.
+    public void afterConnectionEstablished(WebSocketSession session) {
         sessions.add(session);
     }
 }
