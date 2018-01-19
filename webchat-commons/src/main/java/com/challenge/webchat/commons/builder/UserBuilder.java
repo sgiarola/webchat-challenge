@@ -49,7 +49,11 @@ public class UserBuilder {
     }
 
     public UserBuilder withOffLineMessagesBySender(Map<String, List<String>> offLineMessagesBySender) {
-        user.setOffLineMessagesBySender(offLineMessagesBySender);
+        for (Map.Entry<String, List<String>> entry : offLineMessagesBySender.entrySet()) {
+            for (String message : entry.getValue()) {
+                user.getOffLineMessagesBySender().add(String.format("Sender: %s - Message: %s", entry.getKey(), message));
+            }
+        }
         return this;
     }
 

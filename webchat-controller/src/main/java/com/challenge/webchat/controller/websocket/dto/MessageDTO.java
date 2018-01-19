@@ -1,5 +1,7 @@
 package com.challenge.webchat.controller.websocket.dto;
 
+import com.google.common.collect.Lists;
+
 import java.util.List;
 
 public class MessageDTO {
@@ -30,5 +32,11 @@ public class MessageDTO {
 
     public void setChatGroup(List<String> chatGroup) {
         this.chatGroup = chatGroup;
+    }
+
+    public List<String> getReceivers() {
+        List<String> receivers = Lists.newArrayList(chatGroup);
+        receivers.removeIf(sender -> chatGroup.contains(sender));
+        return receivers;
     }
 }

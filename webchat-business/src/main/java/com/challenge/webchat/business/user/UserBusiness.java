@@ -53,4 +53,9 @@ public class UserBusiness {
         }
         userRepositoryFacade.addFriend(username, friend);
     }
+
+    public void addOfflineMessageBy(String sender, String receiver, String message) {
+        LOGGER.info(String.format("Add message %s to %s", message, receiver));
+        userRepositoryFacade.addOfflineMessage(sender, receiver, message);
+    }
 }
