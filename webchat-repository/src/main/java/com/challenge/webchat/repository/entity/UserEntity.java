@@ -5,7 +5,9 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Document
 public class UserEntity {
@@ -19,6 +21,7 @@ public class UserEntity {
     private String genre;
     private boolean loggedIn;
     private List<String> friends;
+    private Map<String, List<String>> offLineMessagesBySender;
 
     public UserEntity() {
     }
@@ -93,5 +96,16 @@ public class UserEntity {
 
     public void setFriends(List<String> friends) {
         this.friends = friends;
+    }
+
+    public Map<String, List<String>> getOffLineMessagesBySender() {
+        if (offLineMessagesBySender == null) {
+            offLineMessagesBySender = new HashMap<>();
+        }
+        return offLineMessagesBySender;
+    }
+
+    public void setOffLineMessagesBySender(Map<String, List<String>> offLineMessagesBySender) {
+        this.offLineMessagesBySender = offLineMessagesBySender;
     }
 }

@@ -1,6 +1,7 @@
 package com.challenge.webchat.commons;
 
 import java.util.List;
+import java.util.Map;
 
 public class User {
 
@@ -12,6 +13,7 @@ public class User {
     private String genre;
     private boolean loggedIn;
     private List<User> friends;
+    private Map<String, List<String>> offLineMessagesBySender;
 
     public String getId() {
         return id;
@@ -75,5 +77,13 @@ public class User {
 
     public void setFriends(List<User> friends) {
         this.friends = friends;
+    }
+
+    public Map<String, List<String>> getOffLineMessagesBySender() {
+        return offLineMessagesBySender;
+    }
+
+    public void setOffLineMessagesBySender(Map<String, List<String>> offLineMessagesBySender) {
+        this.offLineMessagesBySender = offLineMessagesBySender;
     }
 }

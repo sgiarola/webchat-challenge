@@ -2,6 +2,9 @@ package com.challenge.webchat.commons.builder;
 
 import com.challenge.webchat.commons.User;
 
+import java.util.List;
+import java.util.Map;
+
 public class UserBuilder {
 
     private User user;
@@ -42,6 +45,11 @@ public class UserBuilder {
 
     public UserBuilder withLoggedIn(boolean loggedIn) {
         user.setLoggedIn(loggedIn);
+        return this;
+    }
+
+    public UserBuilder withOffLineMessagesBySender(Map<String, List<String>> offLineMessagesBySender) {
+        user.setOffLineMessagesBySender(offLineMessagesBySender);
         return this;
     }
 

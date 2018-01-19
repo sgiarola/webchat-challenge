@@ -25,6 +25,8 @@ public class UserRepositoryFacadeIntegrationTest {
     private static final String PASSWORD = "123456";
     private static final String EMAIL = "fulano@org.com";
     private static final String GENRE = "M";
+    private static final String MESSAGE = "Boa noite. Como vai?";
+    private static final String MESSAGE_TWO = "Quer tc?";
 
     @Autowired
     private UserRepositoryFacade userRepositoryFacade;
@@ -60,6 +62,27 @@ public class UserRepositoryFacadeIntegrationTest {
         UserEntity userEntity = userRepository.findByName(USERNAME);
 
         assertThat(userEntity.getFriends(), is(not(empty())));
+    }
+
+    @Test
+    public void withNewSenderOfflineMessageWhenAddNewMessageThenReturnUpdatedMap() {
+
+        userRepositoryFacade.addOfflineMessage(FRIEND_USERNAME, USERNAME, MESSAGE);
+
+        UserEntity userEntity = userRepository.findByName(USERNAME);
+
+        assertThat(userEntity.getOffLineMessagesBySender().get(FRIEND_USERNAME).size(), is(1));
+    }
+
+    @Test
+    public void withExistsSenderWhenAddNewOfflineMessageThenReturnUpdatedMap() {
+
+        userRepositoryFacade.addOfflineMessage(FRIEND_USERNAME, USERNAME, MESSAGE);
+        userRepositoryFacade.addOfflineMessage(FRIEND_USERNAME, USERNAME, MESSAGE_TWO);
+
+        UserEntity userEntity = userRepository.findByName(USERNAME);
+
+        assertThat(userEntity.getOffLineMessagesBySender().get(FRIEND_USERNAME).size(), is(2));
     }
 
     @After

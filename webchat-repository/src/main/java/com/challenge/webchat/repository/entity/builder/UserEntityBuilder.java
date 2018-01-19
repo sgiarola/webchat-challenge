@@ -4,6 +4,7 @@ import com.challenge.webchat.repository.entity.UserEntity;
 import org.bson.types.ObjectId;
 
 import java.util.List;
+import java.util.Map;
 
 public class UserEntityBuilder {
 
@@ -50,6 +51,11 @@ public class UserEntityBuilder {
 
     public UserEntityBuilder withFriends(List<String> friends) {
         userEntity.setFriends(friends);
+        return this;
+    }
+
+    public UserEntityBuilder withOffLineMessagesBySender(Map<String, List<String>> offLineMessagesBySender) {
+        userEntity.setOffLineMessagesBySender(offLineMessagesBySender);
         return this;
     }
 
