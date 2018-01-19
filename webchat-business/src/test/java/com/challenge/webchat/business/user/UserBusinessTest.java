@@ -3,13 +3,16 @@ package com.challenge.webchat.business.user;
 import com.challenge.webchat.business.config.BusinessConfig;
 import com.challenge.webchat.commons.User;
 import com.challenge.webchat.commons.builder.UserBuilder;
+import com.challenge.webchat.commons.exception.BusinessException;
 import com.challenge.webchat.repository.entity.UserEntity;
 import com.challenge.webchat.repository.entity.builder.UserEntityBuilder;
 import com.challenge.webchat.repository.user.UserRepository;
 import com.challenge.webchat.repository.user.facade.UserRepositoryFacade;
 import org.bson.types.ObjectId;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -35,6 +38,9 @@ public class UserBusinessTest {
     private static final String USERNAME_CICRANO = "cicrano";
     private static final String PASSWORD = "123456";
     private static final int FRIEND_LIST_SIZE = 1;
+
+    @Rule
+    public final ExpectedException exception = ExpectedException.none();
 
     @Autowired
     @InjectMocks
@@ -92,10 +98,23 @@ public class UserBusinessTest {
     @Test
     public void withValidUsernameWhenAddFriendToHeThenPassWithSuccess() {
 
+        when(userRepository.findByName(anyString())).thenReturn(new UserEntityBuilder().withId().withName(USERNAME)
+                .withFriends(Collections.singletonList(USERNAME_CICRANO)).getUserEntity());
+
         doNothing().when(userRepositoryFacade).addFriend(anyString(), anyString());
 
         userBusiness.addFriendTo(USERNAME, USERNAME_CICRANO);
 
         verify(userRepositoryFacade, times(1)).addFriend(USERNAME, USERNAME_CICRANO);
+    }
+
+    @Test
+    public void withFriendUsernameWhenAddNotFoundFriendThenReturnBusinessException() {
+
+        when(userRepository.findByName(anyString())).thenReturn(null);
+
+        exception.expect(BusinessException.class);
+
+        userBusiness.addFriendTo(USERNAME, USERNAME_CICRANO);
     }
 }

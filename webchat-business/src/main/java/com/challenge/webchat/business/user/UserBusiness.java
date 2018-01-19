@@ -3,6 +3,7 @@ package com.challenge.webchat.business.user;
 import com.challenge.webchat.business.converter.UserEntityToUser;
 import com.challenge.webchat.business.converter.UserToUserEntity;
 import com.challenge.webchat.commons.User;
+import com.challenge.webchat.commons.exception.BusinessException;
 import com.challenge.webchat.repository.entity.UserEntity;
 import com.challenge.webchat.repository.user.UserRepository;
 import com.challenge.webchat.repository.user.facade.UserRepositoryFacade;
@@ -47,6 +48,9 @@ public class UserBusiness {
 
     public void addFriendTo(String username, String friend) {
         LOGGER.info(String.format("Add friend %s to user with username %s", friend, username));
+        if (userRepository.findByName(friend) == null) {
+            throw new BusinessException("Friend not found.");
+        }
         userRepositoryFacade.addFriend(username, friend);
     }
 }
