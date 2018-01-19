@@ -35,7 +35,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) {
         web.ignoring().antMatchers("/v2/api-docs", "/name", "/configuration/ui", "/swagger-resources",
                 "/configuration/security", "/swagger-ui.html", "/webjars/**", "/list.html")
-                .antMatchers(HttpMethod.OPTIONS, "/**");
+                .antMatchers(HttpMethod.OPTIONS, "/**")
+                .antMatchers(HttpMethod.POST, "/user");
     }
 
     @Override
@@ -54,6 +55,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutSuccessHandler(customLogoutSuccessHandler)
                 .and()
                 .authorizeRequests()
+                .antMatchers(HttpMethod.POST, "/user").permitAll()
                 .antMatchers("/**").permitAll()
                 .anyRequest().authenticated();
     }
